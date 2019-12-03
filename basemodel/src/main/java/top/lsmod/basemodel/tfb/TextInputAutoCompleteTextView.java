@@ -10,9 +10,6 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-//import android.support.design.widget.TextInputLayout;
-//import android.support.v7.widget.AppCompatAutoCompleteTextView;
-
 /**
  * Text Field Boxes
  * Created by CarbonylGroup on 2018/01/08

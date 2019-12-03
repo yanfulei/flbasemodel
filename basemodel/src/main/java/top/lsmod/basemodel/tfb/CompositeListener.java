@@ -11,7 +11,7 @@ import java.util.List;
  * Aux class to collect multiple click listeners
  * Created by CarbonylGroup on 2017/11/22
  */
-public class CompositeListener implements View.OnFocusChangeListener {
+class CompositeListener implements View.OnFocusChangeListener {
 
     private List<View.OnFocusChangeListener> registeredListeners = new ArrayList<>();
 

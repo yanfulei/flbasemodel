@@ -9,6 +9,7 @@
 
         <!--Colors-->
         <attr name="helperTextColor" format="color" />
+        <attr name="counterTextColor" format="color" />
         <attr name="mCounterTextColor" format="color" />
         <attr name="errorColor" format="color" />
         <attr name="primaryColor" format="color" />
@@ -25,10 +26,12 @@
         <attr name="endIcon" format="reference" />
         <attr name="isResponsiveIconColor" format="boolean" />
         <attr name="hasClearButton" format="boolean" />
+        <attr name="hasJiaJian" format="boolean"/>
         <attr name="hasFocus" format="boolean" />
         <attr name="alwaysShowHint" format="boolean" />
         <attr name="useDenseSpacing" format="boolean" />
         <attr name="rtl" format="boolean" />
+        <attr name="selected" format="boolean" />
 
         <!-- Set whether to automaticavalidateErrordate, or only on demand
                @see {@link TextFieldBoxes#setManualValidateError(boolean) } -->

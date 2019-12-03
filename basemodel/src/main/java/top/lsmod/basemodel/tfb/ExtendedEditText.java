@@ -96,14 +96,14 @@ public class ExtendedEditText extends TextInputAutoCompleteTextView {
     }
 
     @Override
-    public void setOnFocusChangeListener(View.OnFocusChangeListener l) {
+    public void setOnFocusChangeListener(OnFocusChangeListener l) {
 
         focusListener.clearListeners();
         focusListener.registerListener(defaultFocusListener);
         focusListener.registerListener(l);
     }
 
-    void setDefaultOnFocusChangeListener(View.OnFocusChangeListener l) {
+    void setDefaultOnFocusChangeListener(OnFocusChangeListener l) {
 
         defaultFocusListener = l;
         focusListener.registerListener(l);
@@ -137,7 +137,7 @@ public class ExtendedEditText extends TextInputAutoCompleteTextView {
         private TextDrawable() {
 
             setBounds(0, 0, (int) getPaint().measureText(prefix) + 2, (int) getTextSize());
-            setPadding(0, 0, (int) getPaint().measureText(suffix) - 2, 0);
+            setPadding(0, 0, (int) getPaint().measureText(suffix) - 2, -3);
         }
 
         @Override

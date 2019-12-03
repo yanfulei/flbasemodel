@@ -33,6 +33,7 @@ import java.lang.reflect.Field;
 
 import top.lsmod.basemodel.R;
 
+
 /**
  * Text Field Boxes
  * Created by CarbonylGroup on 2017/08/25
@@ -54,6 +55,11 @@ public class TextFieldBoxes extends FrameLayout {
      * whether the text field is enabled. True by default.
      */
     protected boolean enabled;
+
+    /**
+     * 是否为select
+     */
+    protected boolean selected;
 
     /**
      * labelText text at the top.
@@ -83,7 +89,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * the text color for the counterLabel text. DEFAULT_TEXT_COLOR by default.
      */
-    protected int mCounterTextColor;
+    protected int counterTextColor;
 
     /**
      * the text color for when something is wrong (e.g. exceeding max characters, setError()).
@@ -145,12 +151,6 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected boolean useDenseSpacing;
 
-    /**
-     * whether the field uses a rtl direction for 'Persian (Farsi)' and 'Arabic' languages
-     * False by default.
-     */
-    protected boolean rtl;
-
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
     protected int ANIMATION_DURATION = 100;
@@ -177,6 +177,9 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatImageButton clearButton;
     protected AppCompatImageButton iconImageButton;
     protected AppCompatImageButton endIconImageButton;
+    protected AppCompatImageButton endIconAdd;
+    protected AppCompatImageButton endIconJian;
+    protected boolean showJiaJian;
     protected InputMethodManager inputMethodManager;
 
     protected SimpleTextChangedWatcher textChangeListener;
@@ -334,8 +337,7 @@ public class TextFieldBoxes extends FrameLayout {
 
             // We add a fake drawableRight to EditText so it will have padding on the right side and text will not go
             // under the icons.
-            if (!rtl)
-                mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
+            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
 
             final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
             // Store the user defined end compound drawable so that we can restore it later
@@ -366,8 +368,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.editText = findEditTextChild();
         if (editText == null) return;
-        this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout,
-                this, false));
+        this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
         removeView(this.editText);
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
@@ -384,6 +385,8 @@ public class TextFieldBoxes extends FrameLayout {
         this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
         this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
         this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
+        this.endIconAdd = findViewById(R.id.text_field_boxes_end_icon_add);
+        this.endIconJian = findViewById(R.id.text_field_boxes_end_icon_jian);
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
         this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
@@ -398,6 +401,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.clearButton.setAlpha(0.35f);
         this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
         this.endIconImageButton.setAlpha(0.54f);
+        this.endIconAdd.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.endIconAdd.setAlpha(0.54f);
+        this.endIconJian.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.endIconJian.setAlpha(0.54f);
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
 
@@ -468,20 +475,44 @@ public class TextFieldBoxes extends FrameLayout {
 
                 // Only trigger simple watcher when the String actually changed
 
-                if (!lastValue.equals(editable.toString())){
+                if (!lastValue.equals(editable.toString())) {
                     lastValue = editable.toString();
                     if (textChangeListener != null) {
                         textChangeListener.onTextChanged(editable.toString(), onError);
                     }
                 }
-
+                // 调用毁掉事件
+                if (null != inputTypeWatcher) inputTypeWatcher.onInput(editable.toString());
             }
         });
 
-        this.clearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText.setText("");
+        this.clearButton.setOnClickListener(view -> editText.setText(""));
+    }
+
+    /**
+     * selected事件
+     *
+     * @param tfbChangeWatcher
+     */
+    public void setOnSelectClick(TfbChangeWatcher.OnSelectType tfbChangeWatcher) {
+        final boolean[] click = {false};
+//        this.editText.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (!click[0]) {
+//                tfbChangeWatcher.onClick();
+//                click[0] = true;
+//            } else {
+//                click[0] = false;
+//            }
+//        });
+        this.editTextLayout.setOnClickListener(v -> {
+            // 输入框组件不禁用情况下
+            if (this.editText.isEnabled()) {
+                if (!click[0]) {
+                    tfbChangeWatcher.onClick();
+                    editText.clearFocus();
+                    click[0] = true;
+                }
+                click[0] = false;
             }
         });
     }
@@ -501,8 +532,8 @@ public class TextFieldBoxes extends FrameLayout {
             /* Colors */
             this.helperTextColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
-            this.mCounterTextColor = styledAttrs
-                    .getInt(R.styleable.TextFieldBoxes_mCounterTextColor, DEFAULT_TEXT_COLOR);
+            this.counterTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_counterTextColor, DEFAULT_TEXT_COLOR);
             this.errorColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             this.primaryColor = styledAttrs
@@ -527,10 +558,13 @@ public class TextFieldBoxes extends FrameLayout {
                     .getBoolean(R.styleable.TextFieldBoxes_isResponsiveIconColor, true);
             this.hasClearButton = styledAttrs
                     .getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
+            this.showJiaJian = styledAttrs
+                    .getBoolean(R.styleable.TextFieldBoxes_hasJiaJian, false);
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             this.alwaysShowHint = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_alwaysShowHint, false);
             this.useDenseSpacing = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_useDenseSpacing, false);
-            this.rtl = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_rtl, false);
+            // 是否为select
+            this.selected = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_selected, false);
 
             styledAttrs.recycle();
 
@@ -634,7 +668,7 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void setHighlightColor(int colorRes) {
 
-        this.floatingLabel.setTextColor(colorRes);
+        this.floatingLabel.setTextColor(Color.parseColor("#808695"));
         setCursorDrawableColor(this.editText, colorRes);
 
         if (getIsResponsiveIconColor()) {
@@ -695,67 +729,72 @@ public class TextFieldBoxes extends FrameLayout {
         /* Floating Label */
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
         lp.topMargin = res.getDimensionPixelOffset(
-                useDenseSpacing ?
-                        R.dimen.dense_label_idle_margin_top :
-                        R.dimen.label_idle_margin_top
+                useDenseSpacing ? R.dimen.dense_label_idle_margin_top : R.dimen.label_idle_margin_top
         );
         this.floatingLabel.setLayoutParams(lp);
 
         /* EditText Layout */
         this.inputLayout.setPadding(
                 0, res.getDimensionPixelOffset(
-                        useDenseSpacing ?
-                                R.dimen.dense_editTextLayout_padding_top :
-                                R.dimen.editTextLayout_padding_top
+                        useDenseSpacing ? R.dimen.dense_editTextLayout_padding_top : R.dimen.editTextLayout_padding_top
                 ),
                 0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
 
         /* End Icon */
         this.endIconImageButton.setMinimumHeight(
                 res.getDimensionPixelOffset(
-                        useDenseSpacing ?
-                                R.dimen.end_icon_min_height :
-                                R.dimen.dense_end_icon_min_height
+                        useDenseSpacing ? R.dimen.end_icon_min_height : R.dimen.dense_end_icon_min_height
                 )
         );
         this.endIconImageButton.setMinimumWidth(
                 res.getDimensionPixelOffset(
-                        useDenseSpacing ?
-                                R.dimen.end_icon_min_width :
-                                R.dimen.dense_end_icon_min_width
+                        useDenseSpacing ? R.dimen.end_icon_min_width : R.dimen.dense_end_icon_min_width
+                )
+        );
+
+        /* 加好和减号 */
+        this.endIconAdd.setMinimumHeight(res.getDimensionPixelOffset(
+                useDenseSpacing ? R.dimen.end_icon_min_height : R.dimen.dense_end_icon_min_height
+        ));
+
+        this.endIconAdd.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ? R.dimen.end_icon_min_width : R.dimen.dense_end_icon_min_width
+                )
+        );
+
+        this.endIconJian.setMinimumHeight(res.getDimensionPixelOffset(
+                useDenseSpacing ? R.dimen.end_icon_min_height : R.dimen.dense_end_icon_min_height
+        ));
+
+        this.endIconJian.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ? R.dimen.end_icon_min_width : R.dimen.dense_end_icon_min_width
                 )
         );
 
         /* Clear Icon */
         this.clearButton.setMinimumHeight(
                 res.getDimensionPixelOffset(
-                        useDenseSpacing ?
-                                R.dimen.clear_button_min_height :
-                                R.dimen.dense_clear_button_min_height
+                        useDenseSpacing ? R.dimen.clear_button_min_height : R.dimen.dense_clear_button_min_height
                 )
         );
         this.clearButton.setMinimumWidth(
                 res.getDimensionPixelOffset(
-                        useDenseSpacing ?
-                                R.dimen.clear_button_min_width :
-                                R.dimen.dense_clear_button_min_width
+                        useDenseSpacing ? R.dimen.clear_button_min_width : R.dimen.dense_clear_button_min_width
                 )
         );
 
         /* Bottom View */
         lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
         lp.topMargin = res.getDimensionPixelOffset(
-                useDenseSpacing ?
-                        R.dimen.dense_bottom_marginTop :
-                        R.dimen.bottom_marginTop
+                useDenseSpacing ? R.dimen.dense_bottom_marginTop : R.dimen.bottom_marginTop
         );
         this.bottomPart.setLayoutParams(lp);
 
         /* EditText */
         this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(
-                useDenseSpacing ?
-                        R.dimen.dense_edittext_text_size :
-                        R.dimen.edittext_text_size
+                useDenseSpacing ? R.dimen.dense_edittext_text_size : R.dimen.edittext_text_size
         ));
 
         this.labelTopMargin = RelativeLayout.LayoutParams.class
@@ -863,7 +902,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.secondaryColor);
-        this.counterLabel.setTextColor(this.mCounterTextColor);
+        this.counterLabel.setTextColor(this.counterTextColor);
     }
 
     /**
@@ -911,6 +950,17 @@ public class TextFieldBoxes extends FrameLayout {
         else this.clearButton.setVisibility(View.GONE);
     }
 
+    protected void showJianJian(boolean show) {
+        // 设置背景
+        endIconAdd.setImageResource(R.drawable.ic_jia);
+        endIconJian.setImageResource(R.drawable.ic_jian);
+        if (show) this.endIconAdd.setVisibility(View.VISIBLE);
+        else this.endIconAdd.setVisibility(View.GONE);
+
+        if (show) this.endIconJian.setVisibility(View.VISIBLE);
+        else this.endIconJian.setVisibility(View.GONE);
+    }
+
     private void triggerSetters() {
 
         /* Texts */
@@ -919,7 +969,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         /* Colors */
         setHelperTextColor(this.helperTextColor);
-        setmCounterTextColor(this.mCounterTextColor);
+        setCounterTextColor(this.counterTextColor);
         setErrorColor(this.errorColor);
         setPrimaryColor(this.primaryColor);
         setSecondaryColor(this.secondaryColor);
@@ -935,6 +985,7 @@ public class TextFieldBoxes extends FrameLayout {
         setEndIcon(this.endIconResourceId);
         setIsResponsiveIconColor(this.isResponsiveIconColor);
         setHasClearButton(this.hasClearButton);
+        setHasJiaJian(this.showJiaJian);
         setHasFocus(this.hasFocus);
         setAlwaysShowHint(this.alwaysShowHint);
         updateCounterText(!isManualValidateError);
@@ -971,10 +1022,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.helperLabel.setTextColor(this.helperTextColor);
     }
 
-    public void setmCounterTextColor(int colorRes) {
+    public void setCounterTextColor(int colorRes) {
 
-        this.mCounterTextColor = colorRes;
-        this.counterLabel.setTextColor(this.mCounterTextColor);
+        this.counterTextColor = colorRes;
+        this.counterLabel.setTextColor(this.counterTextColor);
     }
 
     public void setErrorColor(int colorRes) {
@@ -1057,7 +1108,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.iconImageButton.setEnabled(false);
             this.helperLabel.setVisibility(View.INVISIBLE);
             this.counterLabel.setVisibility(View.INVISIBLE);
-            this.bottomLine.setVisibility(View.INVISIBLE);
+//            this.bottomLine.setVisibility(View.INVISIBLE);
+            this.bottomLine.setVisibility(View.VISIBLE);
             this.panel.setEnabled(false);
             setHighlightColor(DEFAULT_DISABLED_TEXT_COLOR);
         }
@@ -1149,6 +1201,13 @@ public class TextFieldBoxes extends FrameLayout {
         updateClearAndEndIconLayout();
     }
 
+    public void setHasJiaJian(boolean hasJiaJian) {
+        this.showJiaJian = hasJiaJian;
+        showJianJian(hasJiaJian);
+        updateClearAndEndIconLayout();
+    }
+
+
     /**
      * set if the EditText is having focus
      *
@@ -1159,7 +1218,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.hasFocus = hasFocus;
         if (this.hasFocus) {
             activate(true);
-            this.editText.requestFocus();
+            if (!this.selected) {
+                this.editText.requestFocus();
+                this.editText.setSelection(this.editText.getText().toString().length());//将光标移至文字末尾
+            }
             makeCursorBlink();
 
             /* if there's an error, keep the error color */
@@ -1199,8 +1261,8 @@ public class TextFieldBoxes extends FrameLayout {
         return this.helperTextColor;
     }
 
-    public int getmCounterTextColor() {
-        return this.mCounterTextColor;
+    public int getCounterTextColor() {
+        return this.counterTextColor;
     }
 
     public int getErrorColor() {
@@ -1255,6 +1317,14 @@ public class TextFieldBoxes extends FrameLayout {
 
     public AppCompatImageButton getEndIconImageButton() {
         return this.endIconImageButton;
+    }
+
+    public AppCompatImageButton getEndIconJia() {
+        return this.endIconAdd;
+    }
+
+    public AppCompatImageButton getEndIconJian() {
+        return this.endIconJian;
     }
 
     /* Other Getters */
@@ -1355,5 +1425,14 @@ public class TextFieldBoxes extends FrameLayout {
         int green = Color.green(color);
         int blue = Color.blue(color);
         return Color.argb(alpha, red, green, blue);
+    }
+
+    /**
+     * 输入框输入事件
+     */
+    private TfbChangeWatcher.OnInputType inputTypeWatcher;
+
+    public void setEditTextInputWatcher(TfbChangeWatcher.OnInputType inputTypeWatcher) {
+        this.inputTypeWatcher = inputTypeWatcher;
     }
 }
