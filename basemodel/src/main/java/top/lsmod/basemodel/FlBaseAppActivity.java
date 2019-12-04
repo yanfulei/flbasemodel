@@ -216,6 +216,11 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 获取空布局
+     *
+     * @return
+     */
     public ImageView getEmptyView() {
         return imageView;
     }

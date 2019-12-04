@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,12 +21,15 @@ import top.lsmod.basemodel.utils.HttpUtils;
 public abstract class FlBaseFragment extends Fragment {
     // loading组件
     private LoadingDialog dialog;
+    // 列表空布局
+    private ImageView imageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         //设置布局
         View root = inflater.inflate(R.layout.fragment_fl_base, container, false);
+        imageView = root.findViewById(R.id.iv_list_empty);
         FrameLayout frameLayout = root.findViewById(R.id.fl_all_view);
         View childView = getLayoutInflater().inflate(initLayout(), null);
         frameLayout.addView(childView);
@@ -62,6 +66,15 @@ public abstract class FlBaseFragment extends Fragment {
         if (null != dialog && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    /**
+     * 获取空布局
+     *
+     * @return
+     */
+    public ImageView getEmptyView() {
+        return imageView;
     }
 
     /**
