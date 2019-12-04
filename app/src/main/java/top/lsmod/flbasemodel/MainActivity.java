@@ -1,18 +1,29 @@
 package top.lsmod.flbasemodel;
 
-import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import top.lsmod.basemodel.FlBaseAppActivity;
+import top.lsmod.basemodel.tfb.ExtendedEditText;
+import top.lsmod.basemodel.tfb.TextFieldBoxes;
 
-import android.os.Bundle;
+public class MainActivity extends FlBaseAppActivity {
 
-import top.lsmod.basemodel.constom.LoadingDialog;
-
-public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.ee_server)
+    ExtendedEditText eeServer;
+    @BindView(R.id.tfb_server)
+    TextFieldBoxes tfbServer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        LoadingDialog dialog = new LoadingDialog(this);
-        dialog.show();
+    protected int initLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+        eeServer.setText("asdfds");
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

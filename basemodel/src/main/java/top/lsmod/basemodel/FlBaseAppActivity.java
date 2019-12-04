@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,7 +24,6 @@ import top.lsmod.basemodel.base.impl.OkHttpImpl;
 import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.ActivityCollector;
 import top.lsmod.basemodel.utils.HttpUtils;
-
 
 public abstract class FlBaseAppActivity extends AppCompatActivity {
     // 获取TAG的activity名称
@@ -38,6 +39,8 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
     public Context context;
     // loading组件
     private LoadingDialog dialog;
+    // 列表空布局
+    private ImageView imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +57,12 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         }
 
         // 设置布局
-        setContentView(initLayout());
+        View base = getLayoutInflater().inflate(R.layout.activity_fl_base_app, null);
+        imageView = base.findViewById(R.id.iv_list_empty);
+        FrameLayout frameLayout = base.findViewById(R.id.fl_all_view);
+        View childView = getLayoutInflater().inflate(initLayout(), null);
+        frameLayout.addView(childView);
+        setContentView(base);
         // 初始化loading
         dialog = new LoadingDialog(this);
         ButterKnife.bind(this);
@@ -206,6 +214,10 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         if (null != dialog && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    public ImageView getEmptyView() {
+        return imageView;
     }
 
     /**

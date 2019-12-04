@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +25,10 @@ public abstract class FlBaseFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         //设置布局
-        View root = inflater.inflate(initLayout(), container, false);
+        View root = inflater.inflate(R.layout.fragment_fl_base, container, false);
+        FrameLayout frameLayout = root.findViewById(R.id.fl_all_view);
+        View childView = getLayoutInflater().inflate(initLayout(), null);
+        frameLayout.addView(childView);
         // 初始化loading
         dialog = new LoadingDialog(getActivity());
         ButterKnife.bind(this, root);
