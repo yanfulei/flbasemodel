@@ -19,22 +19,25 @@ import top.lsmod.basemodel.base.FlBaseInterfaceReqBean;
 import top.lsmod.basemodel.base.FlBaseInterfaceRspBean;
 import top.lsmod.basemodel.base.IHttpFactory;
 import top.lsmod.basemodel.base.impl.OkHttpImpl;
+import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.ActivityCollector;
 import top.lsmod.basemodel.utils.HttpUtils;
 
 
 public abstract class FlBaseAppActivity extends AppCompatActivity {
-    //获取TAG的activity名称
+    // 获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
-    //是否显示标题栏
+    // 是否显示标题栏
     private boolean isShowTitle = false;
-    //是否显示状态栏
+    // 是否显示状态栏
     private boolean isShowStatusBar = false;
-    //是否允许旋转屏幕
+    // 是否允许旋转屏幕
     private boolean isAllowScreenRoate = true;
-    //封装Toast对象
+    // 封装Toast对象
     private static Toast toast;
     public Context context;
+    // loading组件
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,18 +53,20 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        //设置布局
+        // 设置布局
         setContentView(initLayout());
+        // 初始化loading
+        dialog = new LoadingDialog(this);
         ButterKnife.bind(this);
-        //设置屏幕是否可旋转
+        // 设置屏幕是否可旋转
         if (!isAllowScreenRoate) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        //初始化控件
+        // 初始化控件
         initView();
-        //设置数据
+        // 设置数据
         initData();
     }
 
@@ -186,11 +191,30 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
     }
 
     /**
+     * 展示loading
+     */
+    public void showLoading() {
+        if (null != dialog && !dialog.isShowing()) {
+            dialog.show();
+        }
+    }
+
+    /**
+     * 隐藏loading
+     */
+    public void hideLoading() {
+        if (null != dialog && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    /**
      * 发送网络请求
      *
      * @param interfaceBean
      */
     public void sendRequest(String serverUrl, FlBaseInterfaceReqBean interfaceBean) {
+        showLoading();
         IHttpFactory httpFactory = new OkHttpImpl();
         if (interfaceBean.getInterfaceType().toLowerCase().contains("get")) {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
@@ -205,7 +229,7 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
      * @param interfaceRspBean
      */
     public void onNetWorkResponse(FlBaseInterfaceRspBean interfaceRspBean) {
-
+        hideLoading();
     }
 
     @Override

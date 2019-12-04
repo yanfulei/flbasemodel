@@ -9,3 +9,6 @@ GitHub地址：https://github.com/lygttpod/SuperTextView
 #FlycoDialog_Lib
 简介：是一个弹出框组件
 GitHub地址：
+#AVLoadingIndicatorView
+简介：是一个loading
+GitHub地址：https://github.com/81813780/AVLoadingIndicatorView

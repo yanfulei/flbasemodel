@@ -19,6 +19,7 @@ import top.lsmod.basemodel.base.FlBaseInterfaceReqBean;
 import top.lsmod.basemodel.base.FlBaseInterfaceRspBean;
 import top.lsmod.basemodel.base.IHttpFactory;
 import top.lsmod.basemodel.base.impl.OkHttpImpl;
+import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.ActivityCollector;
 import top.lsmod.basemodel.utils.HttpUtils;
 
@@ -34,6 +35,8 @@ public abstract class FlBaseActivity extends Activity {
     //封装Toast对象
     private static Toast toast;
     public Context context;
+    // loading组件
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public abstract class FlBaseActivity extends Activity {
 
         //设置布局
         setContentView(initLayout());
+        // 初始化loading
+        dialog = new LoadingDialog(this);
         ButterKnife.bind(this);
         //设置屏幕是否可旋转
         if (!isAllowScreenRoate) {
@@ -185,11 +190,30 @@ public abstract class FlBaseActivity extends Activity {
     }
 
     /**
+     * 展示loading
+     */
+    public void showLoading() {
+        if (null != dialog && !dialog.isShowing()) {
+            dialog.show();
+        }
+    }
+
+    /**
+     * 隐藏loading
+     */
+    public void hideLoading() {
+        if (null != dialog && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    /**
      * 发送网络请求
      *
      * @param interfaceBean
      */
     public void sendRequest(String serverUrl, FlBaseInterfaceReqBean interfaceBean) {
+        showLoading();
         IHttpFactory httpFactory = new OkHttpImpl();
         if (interfaceBean.getInterfaceType().toLowerCase().contains("get")) {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
@@ -204,7 +228,7 @@ public abstract class FlBaseActivity extends Activity {
      * @param interfaceRspBean
      */
     public void onNetWorkResponse(FlBaseInterfaceRspBean interfaceRspBean) {
-
+        hideLoading();
     }
 
     @Override

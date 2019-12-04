@@ -47,4 +47,5 @@ dependencies {
     api 'com.haozhang.libary:android-slanted-textview:1.2'
     api 'com.github.lygttpod:SuperTextView:2.4.2'
     api 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'com.wang.avi:library:2.1.3'
 }
