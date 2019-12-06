@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#ffffff</color>
+    <color name="red">#EA1C27</color>
+    <color name="title_bar">#3F51B5</color>
+    <color name="title_bar_transparent">#4D3F51B5</color>
+    <color name="mo_ren_lable">#e1e1e1</color>
+    <color name="wan_cheng">#B2B2B2</color>
+    <color name="transparent">#00000000</color>
+    <color name="base_btn_color">#527CFD</color>
+    <color name="deep_blue">#003366</color>
+    <color name="main_bg_color">#108EE9</color>
+    <color name="style_fengexian">#bbbbbb</color>
+
+    <color name="colorBlack50">#88000000</color>
+
+    <color name="light_grey">#FFF2F2F2</color>
+    <color name="green_lv2">#669933</color>
+    <color name="yellow_lv2">#FFCC66</color>
+    <color name="blue_lv2">#330099</color>
+
+    <color name="btn_cancel_color">#999999</color>
+    <color name="btn_confirm_color">#303F9F</color>
+
+    <color name="right_lab">#262626</color>
+    <color name="android_moren_bg">#FAFAFA</color>
+
+
+    <color name="bgGradientStart">#000000</color>
+    <color name="bgGradientEnd">#d8000000</color>
+
+    <color name="bgSolidDark">#55000000</color>
+
+    <color name="headGradientStart">#00ffffff</color>
+    <color name="headGradientCenter">#00ffffff</color>
+    <color name="headGradientEnd">#96000000</color>
+
+    <color name="colorListDivider">#e6e6e6</color>
+
     <color name="A400red">#ff1744</color>
+
+    <!--Light Theme-->
+    <color name="per54black">#72000000</color>
+    <color name="per42black">#2a000000</color>
+    <color name="per06black">#06000000</color>
+
+    <!--Dark Theme-->
+    <color name="per70white">#46ffffff</color>
+    <color name="per50white">#32ffffff</color>
+    <color name="per10white">#0affffff</color>
+
+    <color name="sd_label_text_color">#757575</color>
+    <color name="sd_overlay_color">#aaffffff</color>
+    <color name="inside_color">#d1cdcd</color>
+    <color name="uncompleted_color">#A3E0D9</color>
+    <color name="uncompleted_text_color">#F8F8F8</color>
 
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
