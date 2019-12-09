@@ -1,16 +1,18 @@
 package top.lsmod.flbasemodel;
 
+import android.content.Intent;
+import android.widget.Button;
+
 import butterknife.BindView;
 import top.lsmod.basemodel.FlBaseAppActivity;
-import top.lsmod.basemodel.tfb.ExtendedEditText;
-import top.lsmod.basemodel.tfb.TextFieldBoxes;
+import top.lsmod.flbasemodel.testui.SmartRefreshActivity;
 
 public class MainActivity extends FlBaseAppActivity {
 
-    @BindView(R.id.ee_server)
-    ExtendedEditText eeServer;
-    @BindView(R.id.tfb_server)
-    TextFieldBoxes tfbServer;
+    @BindView(R.id.btn_tfb)
+    Button btnTfb;
+    @BindView(R.id.btn_sm)
+    Button btnSm;
 
     @Override
     protected int initLayout() {
@@ -19,7 +21,7 @@ public class MainActivity extends FlBaseAppActivity {
 
     @Override
     protected void initView() {
-        eeServer.setText("asdfds");
+        btnSm.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, SmartRefreshActivity.class)));
     }
 
     @Override
