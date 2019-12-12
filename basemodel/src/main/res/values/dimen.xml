@@ -32,7 +32,8 @@
     <dimen name="upper_panel_paddingBottom">5dp</dimen>
     <dimen name="editTextLayout_padding_bottom">8dp</dimen>
     <dimen name="helper_marginEnd">8dp</dimen>
-    <dimen name="bottom_line_height">2dp</dimen>
+    <!-- 下划线高度 -->
+    <dimen name="bottom_line_height">1dp</dimen>
     <dimen name="label_space_height">8dp</dimen>
     <dimen name="icon_signifier_width">24dp</dimen>
     <dimen name="icon_signifier_height">24dp</dimen>

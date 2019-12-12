@@ -1,11 +1,12 @@
 package top.lsmod.flbasemodel.testui;
 
 import top.lsmod.basemodel.FlBaseAppActivity;
+import top.lsmod.flbasemodel.R;
 
 public class TfbActivity extends FlBaseAppActivity {
     @Override
     protected int initLayout() {
-        return 0;
+        return R.layout.activity_tfb;
     }
 
     @Override
