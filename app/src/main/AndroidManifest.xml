@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".testui.SmartRefreshActivity"></activity>
+        <activity android:name=".testui.SmartRefreshActivity" />
+        <activity android:name=".testui.BtnActivity" />
     </application>
 
 </manifest>
