@@ -1,2 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="top.lsmod.basemodel" />
+    package="top.lsmod.basemodel">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+        <activity
+            android:name=".pen.GridPaintActivity"
+            android:configChanges="screenSize|keyboard|keyboardHidden|orientation"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+
+        <activity
+            android:name=".pen.PaintActivity"
+            android:configChanges="screenSize|orientation|keyboard|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    </application>
+</manifest>

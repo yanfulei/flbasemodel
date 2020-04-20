@@ -1,12 +1,12 @@
 package top.lsmod.flbasemodel;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 
 import butterknife.BindView;
 import top.lsmod.basemodel.FlBaseAppActivity;
 import top.lsmod.flbasemodel.testui.BtnActivity;
+import top.lsmod.flbasemodel.testui.PanMainActivity;
 import top.lsmod.flbasemodel.testui.SmartRefreshActivity;
 import top.lsmod.flbasemodel.testui.TfbActivity;
 
@@ -18,6 +18,8 @@ public class MainActivity extends FlBaseAppActivity {
     Button btnSm;
     @BindView(R.id.btn_btn)
     Button btnBtn;
+    @BindView(R.id.btn_pan)
+    Button btnPan;
 
     @Override
     protected int initLayout() {
@@ -29,6 +31,7 @@ public class MainActivity extends FlBaseAppActivity {
         btnSm.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, SmartRefreshActivity.class)));
         btnBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, BtnActivity.class)));
         btnTfb.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, TfbActivity.class)));
+        btnPan.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PanMainActivity.class)));
     }
 
     @Override

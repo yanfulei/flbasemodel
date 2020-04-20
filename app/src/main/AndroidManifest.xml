@@ -20,6 +20,7 @@
         <activity android:name=".testui.SmartRefreshActivity" />
         <activity android:name=".testui.BtnActivity" />
         <activity android:name=".testui.TfbActivity" />
+        <activity android:name=".testui.PanMainActivity" />
     </application>
 
 </manifest>
