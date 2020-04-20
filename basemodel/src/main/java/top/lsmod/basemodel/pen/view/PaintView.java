@@ -146,7 +146,7 @@ public class PaintView extends View {
     private void initCanvas() {
         mCanvas = new Canvas(mBitmap);
         //设置画布的背景色为透明
-//        mCanvas.drawColor(Color.TRANSPARENT);
+        mCanvas.drawColor(Color.TRANSPARENT);
         // 绘制背景图片
         if (drawPic == 1) {
             // 四角塔位绘制
