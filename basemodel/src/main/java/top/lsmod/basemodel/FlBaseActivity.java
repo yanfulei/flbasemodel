@@ -209,8 +209,6 @@ public abstract class FlBaseActivity extends Activity {
 
     /**
      * 发送网络请求
-     *
-     * @param interfaceBean
      */
     public void sendRequest(String serverUrl, FlBaseInterfaceReqBean interfaceBean) {
         showLoading();
@@ -218,14 +216,12 @@ public abstract class FlBaseActivity extends Activity {
         if (interfaceBean.getInterfaceType().toLowerCase().contains("get")) {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
             interfaceBean.setInterfaceName(interfaceBean.getInterfaceName() + "?" + param);
-            httpFactory.sendGet(serverUrl, interfaceBean, interfaceRspBean -> onNetWorkResponse(interfaceRspBean));
+            httpFactory.sendGet(serverUrl, interfaceBean, this::onNetWorkResponse);
         }
     }
 
     /**
      * 网络请求返回信息
-     *
-     * @param interfaceRspBean
      */
     public void onNetWorkResponse(FlBaseInterfaceRspBean interfaceRspBean) {
         hideLoading();
