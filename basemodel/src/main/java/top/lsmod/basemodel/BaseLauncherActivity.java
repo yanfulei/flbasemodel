@@ -23,22 +23,20 @@ public abstract class BaseLauncherActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTimer();
-    }
-
-    private void setTimer() {
-        mHandler.postDelayed(runnable, 1000);
-    }
-
-    Runnable runnable = () -> runOnUiThread(() -> {
         //设置布局
         setContentView(initLayout());
         // 初始化loading
         dialog = new LoadingDialog(this);
         ButterKnife.bind(this);
         initView();
-        initData();
-    });
+        setTimer();
+    }
+
+    private void setTimer() {
+        mHandler.postDelayed(runnable, 3000);
+    }
+
+    Runnable runnable = () -> runOnUiThread(this::initData);
 
     /**
      * 初始化布局
