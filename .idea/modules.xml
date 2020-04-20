@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/basemodel/basemodel.iml" filepath="$PROJECT_DIR$/basemodel/basemodel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/flbasemodel.iml" filepath="$PROJECT_DIR$/flbasemodel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="flbasemodel/app" />
+      <module fileurl="file://$PROJECT_DIR$/basemodel/basemodel.iml" filepath="$PROJECT_DIR$/basemodel/basemodel.iml" group="flbasemodel/basemodel" />
+      <module fileurl="file://$PROJECT_DIR$/flbasemodel.iml" filepath="$PROJECT_DIR$/flbasemodel.iml" group="flbasemodel" />
     </modules>
   </component>
 </project>
