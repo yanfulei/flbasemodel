@@ -16,7 +16,7 @@ public class SmartRefreshActivity extends FlBaseAppActivity {
     SmartRefreshLayout refreshLayout;
 
     @Override
-    protected int initLayout() {
+    protected Object initLayout() {
         return R.layout.acvity_smart_refresh;
     }
 

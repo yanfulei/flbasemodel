@@ -31,7 +31,7 @@ public class PanMainActivity extends FlBaseAppActivity {
     private boolean isPermissionOk = false;
 
     @Override
-    protected int initLayout() {
+    protected Object initLayout() {
         return R.layout.activity_pan_main;
     }
 

@@ -60,7 +60,12 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         View base = getLayoutInflater().inflate(R.layout.activity_fl_base_app, null);
         imageView = base.findViewById(R.id.iv_list_empty);
         FrameLayout frameLayout = base.findViewById(R.id.fl_all_view);
-        View childView = getLayoutInflater().inflate(initLayout(), null);
+        View childView;
+        if (initLayout() instanceof Integer) {
+            childView = getLayoutInflater().inflate(Integer.parseInt(String.valueOf(initLayout())), null);
+        } else {
+            childView = (View) initLayout();
+        }
         frameLayout.addView(childView);
         setContentView(base);
         // 初始化loading
@@ -83,7 +88,7 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
      *
      * @return 布局id
      */
-    protected abstract int initLayout();
+    protected abstract Object initLayout();
 
     /**
      * 初始化控件

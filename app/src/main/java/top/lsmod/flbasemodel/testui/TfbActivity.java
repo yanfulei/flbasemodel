@@ -5,7 +5,7 @@ import top.lsmod.flbasemodel.R;
 
 public class TfbActivity extends FlBaseAppActivity {
     @Override
-    protected int initLayout() {
+    protected Object initLayout() {
         return R.layout.activity_tfb;
     }
 

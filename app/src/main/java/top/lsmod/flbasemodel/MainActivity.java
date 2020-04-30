@@ -22,7 +22,7 @@ public class MainActivity extends FlBaseAppActivity {
     Button btnPan;
 
     @Override
-    protected int initLayout() {
+    protected Object initLayout() {
         return R.layout.activity_main;
     }
 
