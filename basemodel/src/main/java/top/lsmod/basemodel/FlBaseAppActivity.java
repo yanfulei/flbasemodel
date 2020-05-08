@@ -29,9 +29,9 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
     // 获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
     // 是否显示标题栏
-    private boolean isShowTitle = false;
+    private boolean isShowTitle = true;
     // 是否显示状态栏
-    private boolean isShowStatusBar = false;
+    private boolean isShowStatusBar = true;
     // 是否允许旋转屏幕
     private boolean isAllowScreenRoate = true;
     // 封装Toast对象
@@ -42,17 +42,20 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
     // 列表空布局
     private ImageView imageView;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        // 设置数据
+        initData();
         //activity管理
         ActivityCollector.addActivity(this);
         if (!isShowTitle) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        if (isShowStatusBar) {
+        if (!isShowStatusBar) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
@@ -79,8 +82,6 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         }
         // 初始化控件
         initView();
-        // 设置数据
-        initData();
     }
 
     /**

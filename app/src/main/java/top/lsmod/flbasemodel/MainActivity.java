@@ -28,6 +28,7 @@ public class MainActivity extends FlBaseAppActivity {
 
     @Override
     protected void initView() {
+
         btnSm.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, SmartRefreshActivity.class)));
         btnBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, BtnActivity.class)));
         btnTfb.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, TfbActivity.class)));
@@ -36,6 +37,7 @@ public class MainActivity extends FlBaseAppActivity {
 
     @Override
     protected void initData() {
-
+        setShowStatusBar(false);
+        setShowTitle(false);
     }
 }
