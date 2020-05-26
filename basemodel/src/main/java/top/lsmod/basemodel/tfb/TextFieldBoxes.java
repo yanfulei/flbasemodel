@@ -89,7 +89,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * the text color for the counterLabel text. DEFAULT_TEXT_COLOR by default.
      */
-    protected int counterTextColor;
+    protected int counterTextColor1;
 
     /**
      * the text color for when something is wrong (e.g. exceeding max characters, setError()).
@@ -532,8 +532,8 @@ public class TextFieldBoxes extends FrameLayout {
             /* Colors */
             this.helperTextColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
-            this.counterTextColor = styledAttrs
-                    .getInt(R.styleable.TextFieldBoxes_counterTextColor, DEFAULT_TEXT_COLOR);
+            this.counterTextColor1 = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_counterTextColor1, DEFAULT_TEXT_COLOR);
             this.errorColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             this.primaryColor = styledAttrs
@@ -902,7 +902,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.secondaryColor);
-        this.counterLabel.setTextColor(this.counterTextColor);
+        this.counterLabel.setTextColor(this.counterTextColor1);
     }
 
     /**
@@ -969,7 +969,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         /* Colors */
         setHelperTextColor(this.helperTextColor);
-        setCounterTextColor(this.counterTextColor);
+        setCounterTextColor(this.counterTextColor1);
         setErrorColor(this.errorColor);
         setPrimaryColor(this.primaryColor);
         setSecondaryColor(this.secondaryColor);
@@ -1024,8 +1024,8 @@ public class TextFieldBoxes extends FrameLayout {
 
     public void setCounterTextColor(int colorRes) {
 
-        this.counterTextColor = colorRes;
-        this.counterLabel.setTextColor(this.counterTextColor);
+        this.counterTextColor1 = colorRes;
+        this.counterLabel.setTextColor(this.counterTextColor1);
     }
 
     public void setErrorColor(int colorRes) {
@@ -1262,7 +1262,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     public int getCounterTextColor() {
-        return this.counterTextColor;
+        return this.counterTextColor1;
     }
 
     public int getErrorColor() {
