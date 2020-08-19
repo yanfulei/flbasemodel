@@ -217,6 +217,8 @@ public abstract class FlBaseActivity extends Activity {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
             interfaceBean.setInterfaceName(interfaceBean.getInterfaceName() + "?" + param);
             httpFactory.sendGet(serverUrl, interfaceBean, this::onNetWorkResponse);
+        } else if (interfaceBean.getInterfaceType().toLowerCase().contains("post")) {
+            httpFactory.sendPost(serverUrl, interfaceBean, this::onNetWorkResponse);
         }
     }
 

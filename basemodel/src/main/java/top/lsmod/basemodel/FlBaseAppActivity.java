@@ -242,7 +242,9 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
         if (interfaceBean.getInterfaceType().toLowerCase().contains("get")) {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
             interfaceBean.setInterfaceName(interfaceBean.getInterfaceName() + "?" + param);
-            httpFactory.sendGet(serverUrl, interfaceBean, interfaceRspBean -> onNetWorkResponse(interfaceRspBean));
+            httpFactory.sendGet(serverUrl, interfaceBean, this::onNetWorkResponse);
+        } else if (interfaceBean.getInterfaceType().toLowerCase().contains("post")) {
+            httpFactory.sendPost(serverUrl, interfaceBean, this::onNetWorkResponse);
         }
     }
 

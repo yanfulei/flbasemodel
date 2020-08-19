@@ -89,6 +89,8 @@ public abstract class FlBaseFragment extends Fragment {
             String param = HttpUtils.parseURLPair(interfaceBean.getParam());
             interfaceBean.setInterfaceName(interfaceBean.getInterfaceName() + "?" + param);
             httpFactory.sendGet(serverUrl, interfaceBean, interfaceRspBean -> onNetWorkResponse(interfaceRspBean));
+        } else if (interfaceBean.getInterfaceType().toLowerCase().contains("post")) {
+            httpFactory.sendPost(serverUrl, interfaceBean, this::onNetWorkResponse);
         }
     }
 
