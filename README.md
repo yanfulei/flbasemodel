@@ -39,4 +39,10 @@ String value = mCache.getAsString("test_key1");
 
 GitHub地址：https://github.com/iflove/Logcat.git
 
+##NiceImageView
+
+简介：支持圆角、圆形显示可绘制边框，圆形时可绘制内外两层边框支持边框不覆盖图片可绘制遮罩
+
+包名：top.lsmod.basemodel.constom.NiceImageView
+
 

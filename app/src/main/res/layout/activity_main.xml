@@ -29,4 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="签字板" />
+
+    <Button
+        android:id="@+id/NiceImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NiceImageView原型图片" />
 </LinearLayout>

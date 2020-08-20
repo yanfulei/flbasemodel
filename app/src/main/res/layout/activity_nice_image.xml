@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <top.lsmod.basemodel.constom.NiceImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_launcher_background"
+        app:border_color="#FF7F24"
+        app:border_width="4dp"
+        app:is_circle="true" />
+</LinearLayout>
