@@ -32,3 +32,11 @@ mCache.put("test_key3", "test value", 2 * ACache.TIME_DAY);//保存两天，如�
 获取数据
 ACache mCache = ACache.get(this);
 String value = mCache.getAsString("test_key1");
+
+##Logcat
+
+简介：这是一个Android 上 效率极高的 Log 工具，主要功能为控制不同级别的Log输出,Log信息保存到文件、打印行号、函数调用、Json解析、点击跳转、多标签Tag 支持无限长字符串打印，无Logcat4000字符限制等功能
+
+GitHub地址：https://github.com/iflove/Logcat.git
+
+

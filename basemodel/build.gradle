@@ -32,8 +32,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.android.support:design:29.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -52,4 +52,5 @@ dependencies {
     api 'com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1'    //经典加载
     api 'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'    //经典刷新头
     api 'top.androidman:superbutton:1.1.1'
+    implementation 'com.github.iflove:Logcat:2.1.2'
 }

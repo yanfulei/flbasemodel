@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.lazy.library.logging.Logcat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,9 +27,7 @@ import top.lsmod.basemodel.utils.ACache;
 
 public class OkHttpImpl implements IHttpFactory {
 
-    private static String TAG = "yfl_OkHttpImpl";
     private static Handler mMainHandler = new Handler(Looper.getMainLooper());
-    // Json
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
     @Override
@@ -41,7 +40,7 @@ public class OkHttpImpl implements IHttpFactory {
                 .url(serverUrl + interfaceBean.getInterfaceName())
                 .post(requestBody)
                 .build();
-        Log.d(TAG, interfaceBean.getInterfaceName() + "入参>>" + interfaceBean.getInterfaceName());
+        Logcat.d("【" + interfaceBean.getInterfaceName() + "】入参==>>" + interfaceBean.getInterfaceName());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -58,7 +57,7 @@ public class OkHttpImpl implements IHttpFactory {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String responseStr = Objects.requireNonNull(response.body()).string();
                 mMainHandler.post(() -> {
-                    Log.d(TAG, interfaceBean.getInterfaceName() + "出参>>" + responseStr);
+                    Logcat.d("【" + interfaceBean.getInterfaceName() + "】出参==>>" + responseStr);
                     FlBaseInterfaceRspBean interfaceRspBean = new FlBaseInterfaceRspBean();
                     interfaceRspBean.setHttpCode(response.code());
                     interfaceRspBean.setHttpResult(responseStr);
@@ -77,7 +76,7 @@ public class OkHttpImpl implements IHttpFactory {
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
                 .url(serverUrl + interfaceBean.getInterfaceName())
                 .build();
-        Log.d(TAG, interfaceBean.getInterfaceName() + "入参>>" + interfaceBean.getInterfaceName());
+        Logcat.d("【" + interfaceBean.getInterfaceName() + "】入参==>>" + interfaceBean.getInterfaceName());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -94,7 +93,7 @@ public class OkHttpImpl implements IHttpFactory {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String responseStr = Objects.requireNonNull(response.body()).string();
                 mMainHandler.post(() -> {
-                    Log.d(TAG, interfaceBean.getInterfaceName() + "出参>>" + responseStr);
+                    Logcat.d("【" + interfaceBean.getInterfaceName() + "】出参==>>" + responseStr);
                     FlBaseInterfaceRspBean interfaceRspBean = new FlBaseInterfaceRspBean();
                     interfaceRspBean.setHttpCode(response.code());
                     interfaceRspBean.setHttpResult(responseStr);
