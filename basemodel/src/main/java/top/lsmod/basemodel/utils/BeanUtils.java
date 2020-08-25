@@ -16,8 +16,12 @@ public class BeanUtils {
      * @param from
      * @param to
      */
-    public static void copy(Object from, Object to) throws Exception {
-        copyPropertiesExclude(from, to, null);
+    public static void copy(Object from, Object to) {
+        try {
+            copyPropertiesExclude(from, to, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
