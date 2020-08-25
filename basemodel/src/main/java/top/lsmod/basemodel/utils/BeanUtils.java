@@ -32,7 +32,6 @@ public class BeanUtils {
      * @param excludsArray 排除属性列表
      * @throws Exception
      */
-    @SuppressWarnings("unchecked")
     public static void copyPropertiesExclude(Object from, Object to, String[] excludsArray) throws Exception {
         List<String> excludesList = null;
         if (excludsArray != null && excludsArray.length > 0) {
