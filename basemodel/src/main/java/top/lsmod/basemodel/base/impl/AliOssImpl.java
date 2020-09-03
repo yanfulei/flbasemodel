@@ -9,7 +9,6 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
@@ -27,8 +26,8 @@ import top.lsmod.basemodel.base.IFileUploadFactory;
 
 public class AliOssImpl implements IFileUploadFactory {
 
-    private ClientConfiguration conf;
-    private OSS oss;
+    private static ClientConfiguration conf;
+    private static OSS oss;
 
     @Override
     public void init(Context context, String AccessKeyId, String AccessKeySecret, String Endpoint, FileUploadInitMonitor monitor) {
