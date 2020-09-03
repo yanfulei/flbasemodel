@@ -53,4 +53,6 @@ dependencies {
     api 'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'    //经典刷新头
     api 'top.androidman:superbutton:1.1.1'
     implementation 'com.github.iflove:Logcat:2.1.2'
+    // 阿里云OSS
+    api 'com.aliyun.dpa:oss-android-sdk:+'
 }
