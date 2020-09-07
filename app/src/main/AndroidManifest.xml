@@ -31,6 +31,7 @@
         <activity android:name=".testui.TfbActivity" />
         <activity android:name=".testui.PanMainActivity" />
         <activity android:name=".testui.NiceImageViewAcitvity" />
+        <activity android:name=".testui.SmoothCheckBoxActivity" />
     </application>
 
 </manifest>

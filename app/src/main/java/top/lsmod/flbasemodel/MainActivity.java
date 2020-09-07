@@ -1,15 +1,18 @@
 package top.lsmod.flbasemodel;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import top.lsmod.basemodel.FlBaseAppActivity;
 import top.lsmod.flbasemodel.testui.BtnActivity;
 import top.lsmod.flbasemodel.testui.NiceImageViewAcitvity;
 import top.lsmod.flbasemodel.testui.PanMainActivity;
 import top.lsmod.flbasemodel.testui.SmartRefreshActivity;
+import top.lsmod.flbasemodel.testui.SmoothCheckBoxActivity;
 import top.lsmod.flbasemodel.testui.TfbActivity;
 
 public class MainActivity extends FlBaseAppActivity {
@@ -24,6 +27,8 @@ public class MainActivity extends FlBaseAppActivity {
     Button btnPan;
     @BindView(R.id.NiceImageView)
     Button NiceImageView;
+    @BindView(R.id.btn_scb)
+    Button btnScb;
 
     @Override
     protected Object initLayout() {
@@ -37,6 +42,7 @@ public class MainActivity extends FlBaseAppActivity {
         btnTfb.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, TfbActivity.class)));
         btnPan.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PanMainActivity.class)));
         NiceImageView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NiceImageViewAcitvity.class)));
+        btnScb.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SmoothCheckBoxActivity.class)));
     }
 
     @Override

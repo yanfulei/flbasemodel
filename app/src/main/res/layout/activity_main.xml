@@ -35,4 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="NiceImageView原型图片" />
+
+    <Button
+        android:id="@+id/btn_scb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SmoothCheckBox复选框" />
 </LinearLayout>
