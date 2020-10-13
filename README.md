@@ -45,4 +45,10 @@ GitHub地址：https://github.com/iflove/Logcat.git
 
 包名：top.lsmod.basemodel.constom.NiceImageView
 
+##android-saripaar
+
+简介：安卓验证框架
+
+GitHub地址：https://github.com/ragunathjawahar/android-saripaar.git
+
 
