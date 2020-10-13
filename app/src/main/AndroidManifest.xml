@@ -32,6 +32,7 @@
         <activity android:name=".testui.PanMainActivity" />
         <activity android:name=".testui.NiceImageViewAcitvity" />
         <activity android:name=".testui.SmoothCheckBoxActivity" />
+        <activity android:name=".testui.ValidationEditextActivity" />
     </application>
 
 </manifest>

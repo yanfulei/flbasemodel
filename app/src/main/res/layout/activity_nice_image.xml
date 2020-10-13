@@ -11,5 +11,5 @@
         android:src="@drawable/ic_launcher_background"
         app:border_color="#FF7F24"
         app:border_width="4dp"
-        app:is_circle="true" />
+        app:corner_top_left_radius="20dp" />
 </LinearLayout>

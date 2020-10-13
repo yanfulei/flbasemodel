@@ -1,11 +1,14 @@
 package top.lsmod.flbasemodel.testui;
 
+import com.mobsandgeeks.saripaar.ValidationError;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import top.lsmod.basemodel.FlBaseAppActivity;
@@ -40,6 +43,16 @@ public class SmartRefreshActivity extends FlBaseAppActivity {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
 
     }
 }

@@ -1,12 +1,14 @@
 package top.lsmod.flbasemodel;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import top.lsmod.basemodel.FlBaseAppActivity;
 import top.lsmod.flbasemodel.testui.BtnActivity;
 import top.lsmod.flbasemodel.testui.NiceImageViewAcitvity;
@@ -14,6 +16,7 @@ import top.lsmod.flbasemodel.testui.PanMainActivity;
 import top.lsmod.flbasemodel.testui.SmartRefreshActivity;
 import top.lsmod.flbasemodel.testui.SmoothCheckBoxActivity;
 import top.lsmod.flbasemodel.testui.TfbActivity;
+import top.lsmod.flbasemodel.testui.ValidationEditextActivity;
 
 public class MainActivity extends FlBaseAppActivity {
 
@@ -29,6 +32,8 @@ public class MainActivity extends FlBaseAppActivity {
     Button NiceImageView;
     @BindView(R.id.btn_scb)
     Button btnScb;
+    @BindView(R.id.btn_vea)
+    Button btnVea;
 
     @Override
     protected Object initLayout() {
@@ -43,11 +48,27 @@ public class MainActivity extends FlBaseAppActivity {
         btnPan.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PanMainActivity.class)));
         NiceImageView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NiceImageViewAcitvity.class)));
         btnScb.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SmoothCheckBoxActivity.class)));
+        btnVea.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                startActivity(new Intent(MainActivity.this, ValidationEditextActivity.class));
+            }
+        });
     }
 
     @Override
     protected void initData() {
         setShowStatusBar(false);
         setShowTitle(false);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }

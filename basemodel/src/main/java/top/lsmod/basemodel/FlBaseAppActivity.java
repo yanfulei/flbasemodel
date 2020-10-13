@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mobsandgeeks.saripaar.Validator;
+
 import butterknife.ButterKnife;
 import top.lsmod.basemodel.base.FlBaseInterfaceReqBean;
 import top.lsmod.basemodel.base.FlBaseInterfaceRspBean;
@@ -25,7 +27,7 @@ import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.ActivityCollector;
 import top.lsmod.basemodel.utils.HttpUtils;
 
-public abstract class FlBaseAppActivity extends AppCompatActivity {
+public abstract class FlBaseAppActivity extends AppCompatActivity implements Validator.ValidationListener {
     // 获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
     // 是否显示标题栏
@@ -41,12 +43,16 @@ public abstract class FlBaseAppActivity extends AppCompatActivity {
     private LoadingDialog dialog;
     // 列表空布局
     private ImageView imageView;
+    // 表单验证
+    public Validator validator;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        validator = new Validator(this);
+        validator.setValidationListener(this);
         // 设置数据
         initData();
         //activity管理

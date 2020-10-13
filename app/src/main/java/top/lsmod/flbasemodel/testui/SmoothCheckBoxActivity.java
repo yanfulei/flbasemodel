@@ -3,6 +3,8 @@ package top.lsmod.flbasemodel.testui;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +48,15 @@ public class SmoothCheckBoxActivity extends FlBaseAppActivity {
             datas.add(scbBean);
         }
         adapter = new SmoothCheckBoxAdapter(datas, this);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }

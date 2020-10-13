@@ -16,6 +16,10 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+
+import java.util.List;
+
 import butterknife.BindView;
 import top.lsmod.basemodel.FlBaseAppActivity;
 import top.lsmod.basemodel.pen.GridPaintActivity;
@@ -118,5 +122,15 @@ public class PanMainActivity extends FlBaseAppActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }

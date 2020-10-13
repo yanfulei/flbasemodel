@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mobsandgeeks.saripaar.Validator;
+
 import butterknife.ButterKnife;
 import top.lsmod.basemodel.base.FlBaseInterfaceReqBean;
 import top.lsmod.basemodel.base.FlBaseInterfaceRspBean;
@@ -18,17 +20,21 @@ import top.lsmod.basemodel.base.impl.OkHttpImpl;
 import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.HttpUtils;
 
-public abstract class FlBaseFragment extends Fragment {
+public abstract class FlBaseFragment extends Fragment implements Validator.ValidationListener {
     // loading组件
     private LoadingDialog dialog;
     // 列表空布局
     private ImageView imageView;
+    // 表单验证
+    public Validator validator;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         //设置布局
         View root = inflater.inflate(R.layout.fragment_fl_base, container, false);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
         imageView = root.findViewById(R.id.iv_list_empty);
         FrameLayout frameLayout = root.findViewById(R.id.fl_all_view);
         View childView = getLayoutInflater().inflate(initLayout(), null);
