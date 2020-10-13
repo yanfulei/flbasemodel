@@ -10,6 +10,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import top.lsmod.basemodel.FlBaseAppActivity;
+import top.lsmod.basemodel.constom.RequiredTextView;
 import top.lsmod.flbasemodel.testui.BtnActivity;
 import top.lsmod.flbasemodel.testui.NiceImageViewAcitvity;
 import top.lsmod.flbasemodel.testui.PanMainActivity;
@@ -34,6 +35,10 @@ public class MainActivity extends FlBaseAppActivity {
     Button btnScb;
     @BindView(R.id.btn_vea)
     Button btnVea;
+    @BindView(R.id.rtv_reque)
+    RequiredTextView rtvReque;
+    @BindView(R.id.btn_zhbt)
+    Button btnZhbt;
 
     @Override
     protected Object initLayout() {
@@ -54,6 +59,7 @@ public class MainActivity extends FlBaseAppActivity {
                 startActivity(new Intent(MainActivity.this, ValidationEditextActivity.class));
             }
         });
+        btnZhbt.setOnClickListener(v -> rtvReque.setRequired(!rtvReque.isRequired()));
     }
 
     @Override

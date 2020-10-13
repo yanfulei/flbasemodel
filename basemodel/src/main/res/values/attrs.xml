@@ -26,7 +26,7 @@
         <attr name="endIcon" format="reference" />
         <attr name="isResponsiveIconColor" format="boolean" />
         <attr name="hasClearButton" format="boolean" />
-        <attr name="hasJiaJian" format="boolean"/>
+        <attr name="hasJiaJian" format="boolean" />
         <attr name="hasFocus" format="boolean" />
         <attr name="alwaysShowHint" format="boolean" />
         <attr name="useDenseSpacing" format="boolean" />
@@ -52,11 +52,11 @@
     </declare-styleable>
 
     <declare-styleable name="CircleView">
-        <attr name="penColor" format="color"/>
-        <attr name="outBorderColor" format="color"/>
-        <attr name="sizeLevel" format="integer"/><!-- 画笔大小等级 -->
-        <attr name="showBorder" format="boolean"/>
-        <attr name="showOutBorder" format="boolean"/>
+        <attr name="penColor" format="color" />
+        <attr name="outBorderColor" format="color" />
+        <attr name="sizeLevel" format="integer" /><!-- 画笔大小等级 -->
+        <attr name="showBorder" format="boolean" />
+        <attr name="showOutBorder" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">
@@ -99,11 +99,17 @@
     </declare-styleable>
 
     <declare-styleable name="SmoothCheckBox">
-        <attr name="duration" format="integer"/>
-        <attr name="stroke_width" format="dimension"/>
-        <attr name="color_tick" format="color"/>
-        <attr name="color_checked" format="color"/>
-        <attr name="color_unchecked" format="color"/>
-        <attr name="color_unchecked_stroke" format="color"/>
+        <attr name="duration" format="integer" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="color_tick" format="color" />
+        <attr name="color_checked" format="color" />
+        <attr name="color_unchecked" format="color" />
+        <attr name="color_unchecked_stroke" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RequiredTextView">
+        <attr name="android:text" />
+        <attr name="prefix_text" format="string|reference" />
+        <attr name="prefix_color" format="color|reference" />
     </declare-styleable>
 </resources>
