@@ -72,7 +72,7 @@ public class PanMainActivity extends FlBaseAppActivity {
 //        intent.putExtra("height", 800);//画布高度，最大值3000，默认占满布局
         intent.putExtra("crop", false);   //最终的图片是否只截取文字区域
         intent.putExtra("format", PenConfig.FORMAT_PNG); //图片格式
-        intent.putExtra("drawPic", 2);
+        intent.putExtra("drawPic", "https://zhkc.oss-cn-hangzhou.aliyuncs.com/Project/Common/da79bf92ff07233a.jpg");
 //        intent.putExtra("image", imagePath); //初始图片
         startActivityForResult(intent, 100);
     }

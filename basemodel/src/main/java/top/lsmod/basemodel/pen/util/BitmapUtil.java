@@ -196,7 +196,8 @@ public class BitmapUtil {
         }
         FileOutputStream fos = null;
         try {
-            String appDir = context.getExternalCacheDir().getAbsolutePath();
+//            String appDir = context.getExternalCacheDir().getAbsolutePath();
+            String appDir = context.getObbDir().getAbsolutePath();
             File saveDir = new File(appDir, "signImg");
             if (!saveDir.exists()) {
                 saveDir.mkdirs();
@@ -381,6 +382,7 @@ public class BitmapUtil {
 
     /**
      * 设置ImageView的图片，支持改变图片颜色
+     *
      * @param iv
      * @param id
      * @param color

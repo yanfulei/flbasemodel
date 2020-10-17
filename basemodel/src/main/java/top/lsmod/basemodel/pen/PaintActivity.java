@@ -166,7 +166,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     protected void initData() {
         isCrop = getIntent().getBooleanExtra("crop", false);
         format = getIntent().getStringExtra("format");
-        int drawPic = getIntent().getIntExtra("drawPic", 0);
+        String drawPic = getIntent().getStringExtra("drawPic");
         mPaintView.setDrawPic(drawPic);
         bgColor = getIntent().getIntExtra("background", Color.TRANSPARENT);
         String mInitPath = getIntent().getStringExtra("image");

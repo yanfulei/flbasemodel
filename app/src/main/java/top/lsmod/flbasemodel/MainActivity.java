@@ -39,6 +39,8 @@ public class MainActivity extends FlBaseAppActivity {
     RequiredTextView rtvReque;
     @BindView(R.id.btn_zhbt)
     Button btnZhbt;
+    @BindView(R.id.btn_wc)
+    Button btnWc;
 
     @Override
     protected Object initLayout() {

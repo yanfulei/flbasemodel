@@ -1,5 +1,6 @@
 package top.lsmod.basemodel.pen.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import top.lsmod.basemodel.R;
 import top.lsmod.basemodel.pen.config.PenConfig;
@@ -49,11 +54,11 @@ public class PaintView extends View {
     private boolean isEraser = false;
 
     /**
-     * 绘画模式
+     * 绘画背景
      */
-    private int drawPic;
+    private String drawPic;
 
-    public void setDrawPic(int drawPic) {
+    public void setDrawPic(String drawPic) {
         this.drawPic = drawPic;
     }
 
@@ -143,20 +148,28 @@ public class PaintView extends View {
         mStokeBrushPen.setPaint(mPaint);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void initCanvas() {
         mCanvas = new Canvas(mBitmap);
         //设置画布的背景色为透明
         mCanvas.drawColor(Color.TRANSPARENT);
         // 绘制背景图片
-        if (drawPic == 1) {
-            // 四角塔位绘制
-            Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.beijing1)).getBitmap();
+        new Thread(() -> {
+            Bitmap bitmap = null;
+            if (null != drawPic && !drawPic.isEmpty()) {
+                URL url;
+                try {
+                    url = new URL(drawPic);
+                    InputStream is = url.openStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                } catch (Exception e) {
+                    bitmap = null;
+                    e.printStackTrace();
+                }
+            }
             mCanvas.drawBitmap(bitmap, 0, 0, mPaint);
-        } else if (drawPic == 2) {
-            // 第二种
-            Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.beijing2)).getBitmap();
-            mCanvas.drawBitmap(bitmap, 0, 0, mPaint);
-        }
+            invalidate();
+        }).start();
     }
 
 
