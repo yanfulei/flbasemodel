@@ -53,4 +53,6 @@ dependencies {
     api 'com.aliyun.dpa:oss-android-sdk:2.9.4'
     // Android验证框架
     api 'com.mobsandgeeks:android-saripaar:2.0.3'
+    // 图片展示
+    api 'com.bm.photoview:library:1.4.1'
 }

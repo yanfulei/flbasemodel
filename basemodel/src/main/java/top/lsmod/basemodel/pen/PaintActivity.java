@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -48,7 +49,6 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
      */
     public static final int CANVAS_MAX_HEIGHT = 3000;
 
-    private View mContainerView;
     private ImageView mHandView; //切换 滚动/手写
     private ImageView mUndoView;
     private ImageView mRedoView;
@@ -83,11 +83,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initView() {
-
         View mCancelView = findViewById(R.id.tv_cancel);
         View mOkView = findViewById(R.id.tv_ok);
-
-        mContainerView = findViewById(R.id.scrollView);
         mPaintView = findViewById(R.id.paint_view);
         mHandView = findViewById(R.id.btn_hand);
         mUndoView = findViewById(R.id.btn_undo);
@@ -182,7 +179,11 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         }
         if (bitmapHeight > 0 && bitmapHeight <= 1.0f) {
             heightRate = bitmapHeight;
-            mHeight = getResizeHeight();
+            // 半屏居中
+            mHeight = getResizeHeight() / 2;
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            mPaintView.setLayoutParams(layoutParams);
         } else {
             hasSize = true;
             mHeight = bitmapHeight;

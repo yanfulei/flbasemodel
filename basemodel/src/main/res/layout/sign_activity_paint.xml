@@ -16,29 +16,28 @@
         android:layout_alignParentTop="true" />
 
 
-    <top.lsmod.basemodel.pen.view.HVScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/divider"
-        android:layout_below="@id/actionbar"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none"
-        android:splitMotionEvents="false"
-        app:childLayoutCenter="false"
-        app:fillViewportH="false"
-        app:fillViewportV="false"
-        app:scrollOrientation="both">
+    <!--    <top.lsmod.basemodel.pen.view.HVScrollView-->
+    <!--        android:id="@+id/scrollView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@+id/divider"-->
+    <!--        android:layout_below="@id/actionbar"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:fadingEdge="none"-->
+    <!--        android:overScrollMode="never"-->
+    <!--        android:scrollbars="none"-->
+    <!--        android:splitMotionEvents="false"-->
+    <!--        app:childLayoutCenter="false"-->
+    <!--        app:fillViewportH="false"-->
+    <!--        app:fillViewportV="false"-->
+    <!--        app:scrollOrientation="both">-->
 
-        <top.lsmod.basemodel.pen.view.PaintView
-            android:id="@+id/paint_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </top.lsmod.basemodel.pen.view.HVScrollView>
-
+    <top.lsmod.basemodel.pen.view.PaintView
+        android:id="@+id/paint_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!--    </top.lsmod.basemodel.pen.view.HVScrollView>-->
 
     <View
         android:id="@+id/divider"
@@ -120,6 +119,4 @@
             app:sizeLevel="2" />
 
     </LinearLayout>
-
-
 </RelativeLayout>
