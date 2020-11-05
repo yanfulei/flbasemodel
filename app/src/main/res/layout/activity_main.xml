@@ -67,4 +67,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="水印相机/录像机" />
+
+    <Button
+        android:id="@+id/btn_sz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义设置列表" />
 </LinearLayout>

@@ -1,4 +1,5 @@
 <resources>
+
     <style name="MyDialogStyle">
         <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
         <item name="android:windowFrame">@null</item><!--边框-->
@@ -22,4 +23,30 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/light_grey</item>
     </style>
+
+    <declare-styleable name="CustomMineItemView">
+        <attr name="left_text" format="string" />
+        <attr name="right_text" format="string" />
+        <attr name="left_text_color" format="color" />
+        <attr name="right_text_color" format="reference" />
+        <attr name="left_icon_src" format="reference" />
+        <attr name="show_arrow" format="boolean" />
+        <attr name="show_line" format="boolean" />
+        <attr name="right_hint" format="string" />
+        <attr name="left_icon_visibility" format="enum">
+            <enum name="gone" value="0" />
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomMineSwitchView">
+        <attr name="left_text" />
+        <attr name="left_bottom_text" format="string" />
+        <attr name="left_text_color" />
+        <attr name="right_text" />
+        <attr name="show_line" />
+        <attr name="open" format="boolean" />
+        <attr name="flag" format="integer" />
+    </declare-styleable>
 </resources>

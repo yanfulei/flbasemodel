@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <top.lsmod.basemodel.constom.MineSwitchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flag="1"
+        app:left_bottom_text="开启后仅展示会员卡号、姓名、手机号码的部分信息。"
+        app:left_text="小票上会员信息是否加密" />
+
+    <top.lsmod.basemodel.constom.MineItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:left_icon_visibility="gone"
+        app:left_text="系统消息" />
+</LinearLayout>
