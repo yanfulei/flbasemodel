@@ -15,6 +15,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -165,7 +166,15 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     protected void initData() {
         isCrop = getIntent().getBooleanExtra("crop", false);
         format = getIntent().getStringExtra("format");
-        drawPic = getIntent().getStringExtra("drawPic");       // 背景图片
+        // 背景图片
+        drawPic = getIntent().getStringExtra("drawPic");
+        // 动态设置图片拉伸
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        ViewGroup.LayoutParams para = iv_back.getLayoutParams();
+        para.height = outMetrics.heightPixels / 2 - 40;
+        para.width = outMetrics.widthPixels;
+        iv_back.setLayoutParams(para);
         if (null != drawPic && !drawPic.isEmpty()) {
             Glide.with(this).load(drawPic).into(iv_back);
         }
