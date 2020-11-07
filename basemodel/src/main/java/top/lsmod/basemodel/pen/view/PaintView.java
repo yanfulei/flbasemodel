@@ -54,15 +54,6 @@ public class PaintView extends View {
     private boolean isEraser = false;
 
     /**
-     * 绘画背景
-     */
-    private String drawPic;
-
-    public void setDrawPic(String drawPic) {
-        this.drawPic = drawPic;
-    }
-
-    /**
      * 是否有绘制
      */
     private boolean hasDraw = false;
@@ -116,7 +107,7 @@ public class PaintView extends View {
         this.mWidth = width;
         this.mHeight = height;
 
-        mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_4444);
+        mBitmap = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.transtion), 0, 0, mWidth, mHeight);
         mStokeBrushPen = new SteelPen();
 
         initPaint();
@@ -152,24 +143,24 @@ public class PaintView extends View {
     private void initCanvas() {
         mCanvas = new Canvas(mBitmap);
         //设置画布的背景色为透明
-        mCanvas.drawColor(Color.TRANSPARENT);
-        // 绘制背景图片
-        new Thread(() -> {
-            Bitmap bitmap = null;
-            if (null != drawPic && !drawPic.isEmpty()) {
-                URL url;
-                try {
-                    url = new URL(drawPic);
-                    InputStream is = url.openStream();
-                    bitmap = BitmapFactory.decodeStream(is);
-                } catch (Exception e) {
-                    bitmap = null;
-                    e.printStackTrace();
-                }
-            }
-            mCanvas.drawBitmap(bitmap, 0, 0, mPaint);
-            invalidate();
-        }).start();
+//        mCanvas.drawColor(Color.TRANSPARENT);
+//        // 绘制背景图片
+//        new Thread(() -> {
+//            Bitmap bitmap = null;
+//            if (null != drawPic && !drawPic.isEmpty()) {
+//                URL url;
+//                try {
+//                    url = new URL(drawPic);
+//                    InputStream is = url.openStream();
+//                    bitmap = BitmapFactory.decodeStream(is);
+//                } catch (Exception e) {
+//                    bitmap = null;
+//                    e.printStackTrace();
+//                }
+//            }
+//            mCanvas.drawBitmap(bitmap, 0, 0, mPaint);
+//            invalidate();
+//        }).start();
     }
 
 

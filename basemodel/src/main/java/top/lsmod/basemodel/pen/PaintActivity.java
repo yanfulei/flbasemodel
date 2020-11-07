@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+
 import top.lsmod.basemodel.R;
 import top.lsmod.basemodel.pen.config.PenConfig;
 import top.lsmod.basemodel.pen.util.BitmapUtil;
@@ -55,6 +57,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     private ImageView mPenView;
     private ImageView mClearView;
     private CircleView mSettingView;
+    private ImageView iv_back;
 
     private PaintView mPaintView;
 
@@ -72,7 +75,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     private int bgColor;
     private boolean isCrop;
     private String format;
-
+    private String drawPic;
 
     private PaintSettingWindow settingWindow;
 
@@ -92,6 +95,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         mPenView = findViewById(R.id.btn_pen);
         mClearView = findViewById(R.id.btn_clear);
         mSettingView = findViewById(R.id.btn_setting);
+        iv_back = findViewById(R.id.iv_back);
         mUndoView.setOnClickListener(this);
         mRedoView.setOnClickListener(this);
         mPenView.setOnClickListener(this);
@@ -106,7 +110,6 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         mRedoView.setEnabled(false);
         mClearView.setEnabled(!mPaintView.isEmpty());
 
-        mPaintView.setBackgroundColor(Color.WHITE);
         mPaintView.setStepCallback(this);
 
         PenConfig.PAINT_SIZE_LEVEL = PenConfig.getPaintTextLevel(this);
@@ -123,7 +126,6 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         BitmapUtil.setImage(mClearView, R.drawable.sign_ic_clear, !mPaintView.isEmpty() ? PenConfig.THEME_COLOR : Color.LTGRAY);
 //        mSettingView.setOutBorderColor(PenConfig.THEME_COLOR);
         BitmapUtil.setImage(mHandView, R.drawable.sign_ic_hand, PenConfig.THEME_COLOR);
-
     }
 
 
@@ -163,8 +165,10 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     protected void initData() {
         isCrop = getIntent().getBooleanExtra("crop", false);
         format = getIntent().getStringExtra("format");
-        String drawPic = getIntent().getStringExtra("drawPic");
-        mPaintView.setDrawPic(drawPic);
+        drawPic = getIntent().getStringExtra("drawPic");       // 背景图片
+        if (null != drawPic && !drawPic.isEmpty()) {
+            Glide.with(this).load(drawPic).into(iv_back);
+        }
         bgColor = getIntent().getIntExtra("background", Color.TRANSPARENT);
         String mInitPath = getIntent().getStringExtra("image");
         float bitmapWidth = getIntent().getFloatExtra("width", 1.0f);
