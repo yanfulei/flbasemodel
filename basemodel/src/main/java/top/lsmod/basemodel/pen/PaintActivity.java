@@ -125,6 +125,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         BitmapUtil.setImage(mRedoView, R.drawable.sign_ic_redo, mPaintView.canRedo() ? PenConfig.THEME_COLOR : Color.LTGRAY);
         BitmapUtil.setImage(mUndoView, R.drawable.sign_ic_undo, mPaintView.canUndo() ? PenConfig.THEME_COLOR : Color.LTGRAY);
         BitmapUtil.setImage(mClearView, R.drawable.sign_ic_clear, !mPaintView.isEmpty() ? PenConfig.THEME_COLOR : Color.LTGRAY);
+        mPaintView.setPaintWidth(PaintSettingWindow.PEN_SIZES[0]);
 //        mSettingView.setOutBorderColor(PenConfig.THEME_COLOR);
         BitmapUtil.setImage(mHandView, R.drawable.sign_ic_hand, PenConfig.THEME_COLOR);
     }
