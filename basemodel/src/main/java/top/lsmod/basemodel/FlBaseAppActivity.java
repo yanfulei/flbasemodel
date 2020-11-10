@@ -251,6 +251,8 @@ public abstract class FlBaseAppActivity extends AppCompatActivity implements Val
             httpFactory.sendGet(serverUrl, interfaceBean, this::onNetWorkResponse);
         } else if (interfaceBean.getInterfaceType().toLowerCase().contains("post")) {
             httpFactory.sendPost(serverUrl, interfaceBean, this::onNetWorkResponse);
+        } else if (interfaceBean.getInterfaceType().toLowerCase().contains("file")) {
+            httpFactory.sendFile(serverUrl, interfaceBean, this::onNetWorkResponse);
         }
     }
 

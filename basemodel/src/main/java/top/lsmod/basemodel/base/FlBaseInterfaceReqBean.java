@@ -13,6 +13,10 @@ public class FlBaseInterfaceReqBean {
     private Object param;
     // 上下文
     private Context context;
+    // 文件名称
+    private String fileName;
+    // 文件路径
+    private String filePath;
 
     public FlBaseInterfaceReqBean(Context context, Object[] interfaces, Object param) {
         this.interfaceName = String.valueOf(interfaces[0]);
@@ -20,6 +24,22 @@ public class FlBaseInterfaceReqBean {
         this.interfaceType = String.valueOf(interfaces[2]);
         this.param = param;
         this.context = context;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public Object getParam() {

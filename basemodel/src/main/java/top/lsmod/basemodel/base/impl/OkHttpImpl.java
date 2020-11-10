@@ -9,6 +9,7 @@ import com.lazy.library.logging.Logcat;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -75,6 +77,48 @@ public class OkHttpImpl implements IHttpFactory {
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
                 .url(serverUrl + interfaceBean.getInterfaceName())
+                .build();
+        Logcat.d("【" + interfaceBean.getInterfaceName() + "】入参==>>" + interfaceBean.getInterfaceName());
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                mMainHandler.post(() -> {
+                    FlBaseInterfaceRspBean interfaceRspBean = new FlBaseInterfaceRspBean();
+                    interfaceRspBean.setHttpCode(504);
+                    interfaceRspBean.setHttpResult(e.getMessage());
+                    interfaceRspBean.setInterfaceId(interfaceBean.getInterfaceId());
+                    ihttpFactoryMonitor.onNetWorkResponse(interfaceRspBean);
+                });
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                final String responseStr = Objects.requireNonNull(response.body()).string();
+                mMainHandler.post(() -> {
+                    Logcat.d("【" + interfaceBean.getInterfaceName() + "】出参==>>" + responseStr);
+                    FlBaseInterfaceRspBean interfaceRspBean = new FlBaseInterfaceRspBean();
+                    interfaceRspBean.setHttpCode(response.code());
+                    interfaceRspBean.setHttpResult(responseStr);
+                    interfaceRspBean.setInterfaceId(interfaceBean.getInterfaceId());
+                    ihttpFactoryMonitor.onNetWorkResponse(interfaceRspBean);
+                });
+            }
+        });
+    }
+
+    @Override
+    public void sendFile(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", interfaceBean.getFileName(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), new File(interfaceBean.getFilePath())))
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
+                .url(serverUrl + interfaceBean.getInterfaceName())
+                .post(requestBody)
                 .build();
         Logcat.d("【" + interfaceBean.getInterfaceName() + "】入参==>>" + interfaceBean.getInterfaceName());
         client.newCall(request).enqueue(new Callback() {

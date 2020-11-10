@@ -6,6 +6,8 @@ public interface IHttpFactory {
 
     void sendGet(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor);
 
+    void sendFile(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor);
+
     interface IhttpFactoryMonitor {
 
         void onNetWorkResponse(FlBaseInterfaceRspBean interfaceRspBean);
