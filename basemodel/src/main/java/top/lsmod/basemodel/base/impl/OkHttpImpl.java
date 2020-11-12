@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -109,16 +110,22 @@ public class OkHttpImpl implements IHttpFactory {
     @Override
     public void sendFile(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor) {
         OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new MultipartBody.Builder()
+        MultipartBody.Builder requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", interfaceBean.getFileName(),
-                        RequestBody.create(MediaType.parse("multipart/form-data"), new File(interfaceBean.getFilePath())))
-                .build();
-
+                        RequestBody.create(MediaType.parse("multipart/form-data"), new File(interfaceBean.getFilePath())));
+        // 添加参数
+        if (null != interfaceBean.getFromObj()) {
+            for (Map.Entry<String, String> entry : interfaceBean.getFromObj().entrySet()) {
+                String mapKey = entry.getKey();
+                String mapValue = entry.getValue();
+                requestBody.addFormDataPart(mapKey, mapValue);
+            }
+        }
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
                 .url(serverUrl + interfaceBean.getInterfaceName())
-                .post(requestBody)
+                .post(requestBody.build())
                 .build();
         Logcat.d("【" + interfaceBean.getInterfaceName() + "】入参==>>" + interfaceBean.getInterfaceName());
         client.newCall(request).enqueue(new Callback() {
