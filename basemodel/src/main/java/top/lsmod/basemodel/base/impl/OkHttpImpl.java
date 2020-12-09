@@ -114,14 +114,6 @@ public class OkHttpImpl implements IHttpFactory {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", interfaceBean.getFileName(),
                         RequestBody.create(MediaType.parse("multipart/form-data"), new File(interfaceBean.getFilePath())));
-        // 添加参数
-        if (null != interfaceBean.getFromObj()) {
-            for (Map.Entry<String, String> entry : interfaceBean.getFromObj().entrySet()) {
-                String mapKey = entry.getKey();
-                String mapValue = entry.getValue();
-                requestBody.addFormDataPart(mapKey, mapValue);
-            }
-        }
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
                 .url(serverUrl + interfaceBean.getInterfaceName())

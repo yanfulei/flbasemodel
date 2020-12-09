@@ -19,8 +19,6 @@ public class FlBaseInterfaceReqBean {
     private String fileName;
     // 文件路径
     private String filePath;
-    // 表单提交时键值对
-    private Map<String, String> fromObj;
 
     public FlBaseInterfaceReqBean(Context context, Object[] interfaces, Object param) {
         this.interfaceName = String.valueOf(interfaces[0]);
@@ -28,14 +26,6 @@ public class FlBaseInterfaceReqBean {
         this.interfaceType = String.valueOf(interfaces[2]);
         this.param = param;
         this.context = context;
-    }
-
-    public Map<String, String> getFromObj() {
-        return fromObj;
-    }
-
-    public void setFromObj(Map<String, String> fromObj) {
-        this.fromObj = fromObj;
     }
 
     public String getFileName() {

@@ -75,8 +75,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     private float heightRate = 1.0f;
     private int bgColor;
     private boolean isCrop;
-    private String format;
-    private String drawPic;
+    private String format, drawPic, uuid;
 
     private PaintSettingWindow settingWindow;
 
@@ -169,6 +168,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         format = getIntent().getStringExtra("format");
         // 背景图片
         drawPic = getIntent().getStringExtra("drawPic");
+        // 组件唯一ID
+        uuid = getIntent().getStringExtra("uuid");
         // 动态设置图片拉伸
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
@@ -355,6 +356,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                     mSaveProgressDlg.dismiss();
                     Intent intent = new Intent();
                     intent.putExtra(PenConfig.SAVE_PATH, mSavePath);
+                    // 当前界面的唯一ID
+                    intent.putExtra("uuid", uuid);
                     setResult(RESULT_OK, intent);
                     finish();
                     break;
