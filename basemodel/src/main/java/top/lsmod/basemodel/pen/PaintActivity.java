@@ -175,7 +175,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
         ViewGroup.LayoutParams para = iv_back.getLayoutParams();
-        para.height = outMetrics.heightPixels / 2 - 40;
+        para.height = (int) (outMetrics.heightPixels / 2.4);
         para.width = outMetrics.widthPixels;
         iv_back.setLayoutParams(para);
         if (null != drawPic && !drawPic.isEmpty()) {
