@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,7 +179,13 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         para.width = outMetrics.widthPixels;
         iv_back.setLayoutParams(para);
         if (null != drawPic && !drawPic.isEmpty()) {
-            Glide.with(this).load(drawPic).into(iv_back);
+            // base64图片
+            if (drawPic.startsWith("data:image")) {
+                byte[] imageByteArray = Base64.decode(drawPic, Base64.DEFAULT);
+                Glide.with(this).asBitmap().load(imageByteArray).into(iv_back);
+            } else {
+                Glide.with(this).load(drawPic).into(iv_back);
+            }
         }
         bgColor = getIntent().getIntExtra("background", Color.TRANSPARENT);
         String mInitPath = getIntent().getStringExtra("image");
