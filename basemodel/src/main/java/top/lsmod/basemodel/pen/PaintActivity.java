@@ -181,7 +181,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         if (null != drawPic && !drawPic.isEmpty()) {
             // base64图片
             if (drawPic.startsWith("data:image")) {
-                byte[] imageByteArray = Base64.decode(drawPic, Base64.DEFAULT);
+                byte[] imageByteArray = Base64.decode(drawPic.split(",")[1], Base64.DEFAULT);
                 Glide.with(this).asBitmap().load(imageByteArray).into(iv_back);
             } else {
                 Glide.with(this).load(drawPic).into(iv_back);
