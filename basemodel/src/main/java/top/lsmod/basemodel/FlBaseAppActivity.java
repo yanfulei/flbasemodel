@@ -220,6 +220,16 @@ public abstract class FlBaseAppActivity extends AppCompatActivity implements Val
     }
 
     /**
+     * 展示loading
+     */
+    public void showLoading(String msg) {
+        if (null != dialog && !dialog.isShowing()) {
+            dialog.setMessage(msg);
+            dialog.show();
+        }
+    }
+
+    /**
      * 隐藏loading
      */
     public void hideLoading() {
