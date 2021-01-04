@@ -35,8 +35,8 @@ public class OkHttpImpl implements IHttpFactory {
 
     @Override
     public void sendPost(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor) {
-        OkHttpClient client = new OkHttpClient();
-        client.newBuilder().connectTimeout(180, TimeUnit.SECONDS).readTimeout(180, TimeUnit.SECONDS).build();
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .connectTimeout(600000, TimeUnit.MILLISECONDS).readTimeout(600000, TimeUnit.MILLISECONDS).build();
         RequestBody requestBody = RequestBody.create(new Gson().toJson(interfaceBean.getParam()), MEDIA_TYPE_JSON);
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
@@ -73,8 +73,8 @@ public class OkHttpImpl implements IHttpFactory {
 
     @Override
     public void sendGet(String serverUrl, FlBaseInterfaceReqBean interfaceBean, IhttpFactoryMonitor ihttpFactoryMonitor) {
-        OkHttpClient client = new OkHttpClient();
-        client.newBuilder().connectTimeout(180, TimeUnit.SECONDS).readTimeout(180, TimeUnit.SECONDS).build();
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .connectTimeout(600000, TimeUnit.MILLISECONDS).readTimeout(600000, TimeUnit.MILLISECONDS).build();
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + ACache.get(interfaceBean.getContext()).getAsString("token"))
                 .url(serverUrl + interfaceBean.getInterfaceName())
