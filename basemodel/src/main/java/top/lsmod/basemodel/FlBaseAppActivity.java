@@ -1,6 +1,7 @@
 package top.lsmod.basemodel;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -18,11 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobsandgeeks.saripaar.Validator;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
+
 import butterknife.ButterKnife;
 import top.lsmod.basemodel.base.FlBaseInterfaceReqBean;
 import top.lsmod.basemodel.base.FlBaseInterfaceRspBean;
 import top.lsmod.basemodel.base.IHttpFactory;
 import top.lsmod.basemodel.base.impl.OkHttpImpl;
+import top.lsmod.basemodel.bean.AppBackgroundEventBean;
 import top.lsmod.basemodel.constom.LoadingDialog;
 import top.lsmod.basemodel.utils.ActivityCollector;
 import top.lsmod.basemodel.utils.HttpUtils;
@@ -280,5 +286,38 @@ public abstract class FlBaseAppActivity extends AppCompatActivity implements Val
         super.onDestroy();
         //activity管理
         ActivityCollector.removeActivity(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isAppOnForeground()) {
+            // app 进入后台
+            EventBus.getDefault().post(new AppBackgroundEventBean());
+            Toast.makeText(this, "APP已进入后台，数据已备份!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    /**
+     * 程序是否在前台运行
+     *
+     * @return
+     */
+    public boolean isAppOnForeground() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = getApplicationContext().getPackageName();
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
     }
 }
